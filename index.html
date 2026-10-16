@@ -32,14 +32,6 @@
             <div id="custom-tournaments-container"></div>
         </section>
 
-        <!-- Automatische Team-Matches (Gegen andere Clubs) -->
-        <section class="matches-section">
-            <h2 class="section-title">🏆 Club-Matches</h2>
-            <div id="matches-container" class="loading">
-                Turnierdaten werden von Chess.com geladen...
-            </div>
-        </section>
-
         <!-- Ansprechpartner -->
         <section class="admin-section">
             <h2 class="section-title">👑 Ansprechpartner</h2>
@@ -67,6 +59,7 @@
             try {
                 const timestamp = new Date().getTime();
                 
+                // Nur noch Mitglieder & Rating laden
                 const clubRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}?v=${timestamp}`);
                 if (!clubRes.ok) throw new Error("Club nicht gefunden");
                 
@@ -75,44 +68,9 @@
                 document.getElementById('member-count').textContent = clubData.members_count || '0';
                 document.getElementById('daily-rating').textContent = clubData.average_daily_rating || '-';
                 
-                const matchesRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}/matches?v=${timestamp}`);
-                const matchesData = await matchesRes.json();
-                
-                renderMatches(matchesData);
             } catch (error) {
                 console.error("Daten-Fehler:", error);
-                document.getElementById('matches-container').innerHTML = '<p style="color: #ff6b6b; font-size: 14px;">Daten konnten nicht geladen werden.</p>';
             }
-        }
-
-        function renderMatches(data) {
-            const container = document.getElementById('matches-container');
-            container.innerHTML = ''; 
-
-            const upcoming = data.registered || [];
-            const inProgress = data.in_progress || [];
-            const activeMatches = [...upcoming, ...inProgress].slice(0, 3);
-
-            if (activeMatches.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">Aktuell keine Club-gegen-Club Matches.</p>';
-                return;
-            }
-
-            activeMatches.forEach(match => {
-                const opponentParts = match.opponent.split('/');
-                const opponentName = opponentParts[opponentParts.length - 1].replace(/-/g, ' ');
-
-                const card = document.createElement('div');
-                card.className = 'match-card';
-                card.onclick = () => window.open(match.url, '_blank');
-                
-                const isNext = match.status === 'registration';
-                card.innerHTML = `
-                    <p class="match-title">vs. <span style="text-transform: capitalize;">${opponentName}</span></p>
-                    <p class="match-meta" style="${isNext ? 'color: #4CAF50; font-weight: bold;' : ''}">${isNext ? 'Registrierung läuft 🟢' : 'Match läuft ⚔️'}</p>
-                `;
-                container.appendChild(card);
-            });
         }
 
         async function loadAdmin() {
@@ -138,12 +96,7 @@
                 const res = await fetch(`config.json?v=${new Date().getTime()}`);
                 const config = await res.json();
 
-                // NEU: Echte Mitgliederzahl aus dem Bot überschreibt die API!
-                if (config.live_members && config.live_members !== "...") {
-                    document.getElementById('member-count').textContent = config.live_members;
-                }
-
-                // 1. Manuelle Turniere laden (mit neuem Design)
+                // Manuelle Turniere laden (mit neuem Design)
                 const tourneySection = document.getElementById('custom-tournaments-section');
                 const tourneyContainer = document.getElementById('custom-tournaments-container');
                 
