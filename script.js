@@ -55,5 +55,29 @@ function renderMatches(data) {
     });
 }
 
-// Dashboard-Logik starten, sobald die Seite lädt
-initDashboard();
+async function loadConfig() {
+    try {
+        // Lädt die config.json (Zeitstempel verhindert veraltete Daten im Browser-Cache)
+        const res = await fetch(`config.json?v=${new Date().getTime()}`);
+        const config = await res.json();
+
+        // 1. News anzeigen
+        const newsContainer = document.getElementById('club-news');
+        if (config.news && config.news.trim() !== "") {
+            newsContainer.textContent = config.news;
+            newsContainer.style.display = "block";
+        }
+
+        // 2. Clubziele laden
+        const goalsContainer = document.getElementById('club-goals');
+        if (config.goals && config.goals.length > 0) {
+            goalsContainer.innerHTML = ""; // Leer machen
+            config.goals.forEach(goal => {
+                const li = document.createElement('li');
+                li.textContent = goal;
+                goalsContainer.appendChild(li);
+            });
+        }
+
+        // 3. Partner intelligent steuern
+        const partnerSection = document.getElementById
