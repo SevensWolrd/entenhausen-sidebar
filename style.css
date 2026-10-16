@@ -241,3 +241,33 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+/* =========================================
+   📱 MOBILE OPTIMIERUNG (Für Smartphones)
+   ========================================= */
+@media (max-width: 380px) {
+    .sidebar-container {
+        padding: 10px; /* Weniger Außenabstand für mehr Platz in der Mitte */
+    }
+    
+    .gold-text {
+        font-size: 22px; /* Titel leicht verkleinern, damit er in eine Zeile passt */
+    }
+    
+    .stats-section {
+        flex-direction: column; /* Statistiken untereinander statt nebeneinander */
+        gap: 8px;
+    }
+    
+    .stat-box {
+        padding: 10px; /* Etwas kompakter */
+    }
+
+    .goals-list li {
+        font-size: 13px; /* Ziele-Text minimal anpassen */
+        padding: 10px 12px 10px 36px; /* Ente und Text rücken etwas näher zusammen */
+    }
+
+    .admin-link {
+        gap: 10px; /* Bild und Text beim Ansprechpartner rücken etwas zusammen */
+    }
+}
