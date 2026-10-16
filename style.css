@@ -131,3 +131,23 @@ body {
     background: var(--gold);
     color: var(--bg-dark);
 }
+.goals-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.goals-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-main);
+}
+
+.goals-list li::before {
+    content: '🦆'; /* Kleines Enten-Aufzählungszeichen */
+    position: absolute;
+    left: 0;
+    top: -2px;
+    font-size: 12px;
+}
