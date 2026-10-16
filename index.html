@@ -33,19 +33,27 @@
                 Turnierdaten werden von Chess.com geladen...
             </div>
         </section>
-        
-        <!-- Partnernetzwerk -->
-        <!-- News Sektion (optional, wenn es was Wichtiges gibt) -->
-<div id="club-news" class="club-news-banner" style="display: none;"></div>
 
-<!-- Partnernetzwerk -->
-<section class="partner-section">
-    <h2 class="section-title">🤝 Partner</h2>
-    <div id="partner-container" class="partner-links">
-        <!-- Wird automatisch aus der config.json geladen -->
+        <!-- Clubziele (Werden automatisch aus der config.json geladen) -->
+        <section class="goals-section">
+            <h2 class="section-title">💎 Unsere Ziele</h2>
+            <ul id="club-goals" class="goals-list">
+                <!-- Wird automatisch gefüllt -->
+            </ul>
+        </section>
+
+        <!-- News Sektion (Wird nur angezeigt, wenn in der config.json Text steht) -->
+        <div id="club-news" class="club-news-banner" style="display: none;"></div>
+
+        <!-- Partnernetzwerk (Standardmäßig versteckt, bis Partner in config.json stehen) -->
+        <section id="partner-section" class="partner-section" style="display: none;">
+            <h2 class="section-title">🤝 Partner</h2>
+            <div id="partner-container" class="partner-links">
+                <!-- Wird automatisch aus der config.json geladen -->
+            </div>
+        </section>
     </div>
-</section>
-    </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
