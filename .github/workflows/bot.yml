@@ -1,0 +1,32 @@
+name: Entenhausen Bot
+
+on:
+  schedule:
+    - cron: '0 */4 * * *' # Läuft automatisch alle 4 Stunden
+  workflow_dispatch: # Erlaubt dir, den Bot per Knopfdruck manuell zu starten
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Code auschecken
+        uses: actions/checkout@v3
+
+      - name: Python einrichten
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Module installieren
+        run: pip install requests beautifulsoup4
+
+      - name: Bot ausführen (Scraping)
+        run: python scraper.py
+
+      - name: Änderungen speichern (Auto-Commit)
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "🤖 Bot: Live-Daten (Turniere & Mitglieder) aktualisiert"
