@@ -1,0 +1,133 @@
+:root {
+    --bg-dark: #0a1f16;
+    --bg-panel: #143324;
+    --gold: #D4AF37;
+    --gold-hover: #F3E5AB;
+    --text-main: #f4f4f4;
+    --text-muted: #a0b8aa;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+}
+
+/* Die Sidebar ist so breit wie die Chess.com Spalte */
+.sidebar-container {
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gold-text {
+    color: var(--gold);
+    margin: 0;
+    font-size: 26px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.club-header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.stats-section {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat-box {
+    flex: 1;
+    background: var(--bg-panel);
+    padding: 15px 10px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+}
+
+.stat-value {
+    display: block;
+    font-size: 24px;
+    color: var(--gold);
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-size: 16px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.match-card {
+    background: var(--bg-panel);
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--gold);
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+
+.match-card:hover {
+    background: #1a4331;
+    transform: translateX(4px);
+}
+
+.match-title {
+    font-weight: bold;
+    font-size: 14px;
+    margin: 0 0 5px 0;
+    color: var(--text-main);
+}
+
+.match-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.partner-btn {
+    display: block;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.partner-btn:hover {
+    background: var(--gold);
+    color: var(--bg-dark);
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entenhausen - Premium Chess Club</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar-container">
+        <!-- Header -->
+        <header class="club-header">
+            <h1 class="gold-text">🦆 Entenhausen</h1>
+            <p class="subtitle">Der Premium Chess Club</p>
+        </header>
+
+        <!-- Live Statistiken -->
+        <section class="stats-section">
+            <div class="stat-box">
+                <span class="stat-value" id="member-count">...</span>
+                <span class="stat-label">Mitglieder</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value" id="daily-rating">...</span>
+                <span class="stat-label">Tages-Rating</span>
+            </div>
+        </section>
+
+        <!-- Automatische Turniere -->
+        <section class="matches-section">
+            <h2 class="section-title">🏆 Aktuelle Turniere</h2>
+            <div id="matches-container" class="loading">
+                Turnierdaten werden von Chess.com geladen...
+            </div>
+        </section>
+        
+        <!-- Partnernetzwerk -->
+        <section class="partner-section">
+            <h2 class="section-title">🤝 Partner</h2>
+            <div class="partner-links">
+                <a href="#" class="partner-btn">Zum Partnerclub</a>
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
