@@ -131,23 +131,39 @@ body {
     background: var(--gold);
     color: var(--bg-dark);
 }
+
 .goals-list {
-    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Abstand zwischen den einzelnen Zielen */
     padding: 0;
     margin: 0;
+    list-style-type: none;
 }
+
 .goals-list li {
-    position: relative;
-    padding-left: 20px;
-    margin-bottom: 8px;
+    background: rgba(212, 175, 55, 0.05); /* Sehr sanfter goldener Schimmer */
+    border-left: 3px solid var(--gold); /* Kräftiger Gold-Akzent links */
+    padding: 12px 15px 12px 42px; /* Platz für den Text und die Ente */
+    border-radius: 4px 6px 6px 4px;
     font-size: 14px;
     color: var(--text-main);
+    position: relative;
+    transition: transform 0.2s ease, background 0.3s ease;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.goals-list li:hover {
+    transform: translateX(4px); /* Bewegt sich beim Hover leicht nach rechts */
+    background: rgba(212, 175, 55, 0.12); /* Wird beim Hover etwas heller */
 }
 
 .goals-list li::before {
-    content: '🦆'; /* Kleines Enten-Aufzählungszeichen */
+    content: '🦆'; 
     position: absolute;
-    left: 0;
-    top: -2px;
-    font-size: 12px;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%); /* Zentriert die Ente perfekt vertikal */
+    font-size: 18px; /* Ente etwas größer gemacht */
 }
