@@ -61,147 +61,155 @@
     </div>
     
     <script>
-        const CLUB_SLUG = 'entenhausen'; 
+        // HIER DEN EXAKTEN CLUB-NAMEN AUS DER CHESS.COM URL EINTRAGEN
+// Prüfe genau eure URL: z.B. https://www.chess.com/club/DEIN-CLUB-NAME
+const CLUB_SLUG = 'entenhausen'; 
 
-        async function initDashboard() {
-            try {
-                const clubRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}`);
-                const clubData = await clubRes.json();
-                
-                document.getElementById('member-count').textContent = clubData.members_count || '-';
-                document.getElementById('daily-rating').textContent = clubData.average_daily_rating || 'N/A';
-                
-                const matchesRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}/matches`);
-                const matchesData = await matchesRes.json();
-                
-                renderMatches(matchesData);
-            } catch (error) {
-                console.error("Fehler beim Laden der Chess.com Daten:", error);
-                document.getElementById('matches-container').innerHTML = '<p style="color: var(--text-muted);">Live-Daten momentan nicht verfügbar.</p>';
-            }
-        }
-
-        function renderMatches(data) {
-            const container = document.getElementById('matches-container');
-            container.innerHTML = ''; 
-
-            const activeMatches = [...(data.registered || []), ...(data.in_progress || [])].slice(0, 3);
-
-            if (activeMatches.length === 0) {
-                container.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">Aktuell keine Turniere. Bereite dich auf das nächste vor!</p>';
-                return;
-            }
-
-            activeMatches.forEach(match => {
-                const opponentUrlParts = match.opponent.split('/');
-                const opponentName = opponentUrlParts[opponentUrlParts.length - 1].replace(/-/g, ' ');
-
-                const card = document.createElement('div');
-                card.className = 'match-card';
-                card.onclick = () => window.open(match.url, '_blank');
-                
-                card.innerHTML = `
-                    <p class="match-title">vs. <span style="text-transform: capitalize;">${opponentName}</span></p>
-                    <p class="match-meta">Status: ${match.status === 'registration' ? 'Registrierung läuft 🟢' : 'Match läuft ⚔️'}</p>
-                `;
-                
-                container.appendChild(card);
-            });
-        }
-
-        // NEU: Lädt das Profilbild und den Namen von Kissenschlach
-        async function loadAdmin() {
-            try {
-                const res = await fetch('https://api.chess.com/pub/player/kissenschlach');
-                const adminData = await res.json();
-                
-                const container = document.getElementById('admin-container');
-                const avatarUrl = adminData.avatar || 'https://www.chess.com/bundles/web/images/user-image.svg';
-                
-                container.innerHTML = `
-                    <a href="${adminData.url}" target="_blank" class="admin-link">
-                        <img src="${avatarUrl}" alt="Kissenschlach" class="admin-avatar">
-                        <div class="admin-info">
-                            <span class="admin-name">Kissenschlach</span>
-                            <span class="admin-role">Club Leitung</span>
-                        </div>
-                    </a>
-                `;
-            } catch (error) {
-                console.error("Fehler beim Laden des Admins:", error);
-            }
-        }
-
-        async function loadConfig() {
-            try {
-                const res = await fetch(`config.json?v=${new Date().getTime()}`);
-                const config = await res.json();
-
-                const newsContainer = document.getElementById('club-news');
-                if (config.news && config.news.trim() !== "") {
-                    newsContainer.textContent = config.news;
-                    newsContainer.style.display = "block";
-                }
-
-                const goalsContainer = document.getElementById('club-goals');
-                if (config.goals && config.goals.length > 0) {
-                    goalsContainer.innerHTML = ""; 
-                    config.goals.forEach(goal => {
-                        const li = document.createElement('li');
-                        li.textContent = goal;
-                        goalsContainer.appendChild(li);
-                    });
-                }
-
-                const partnerSection = document.getElementById('partner-section');
-                const partnerContainer = document.getElementById('partner-container');
-                
-                if (config.partners && config.partners.length > 0) {
-                    partnerSection.style.display = "block"; 
-                    partnerContainer.innerHTML = "";
-                    
-                    config.partners.forEach(partner => {
-                        const btn = document.createElement('a');
-                        btn.href = partner.url;
-                        btn.className = 'partner-btn';
-                        btn.textContent = partner.name;
-                        btn.target = "_blank"; 
-                        btn.style.marginBottom = "8px"; 
-                        partnerContainer.appendChild(btn);
-                    });
-                } else {
-                    partnerSection.style.display = "none";
-                }
-
-            } catch (error) {
-                console.error("Konnte Config nicht laden:", error);
-            }
-        }
-
-        async function initDashboard() {
+async function initDashboard() {
     try {
-        // Der Zeitstempel zwingt den Browser, die Daten immer frisch zu laden
         const timestamp = new Date().getTime();
         
-        // 1. Live-Mitgliederzahlen laden (mit Cache-Buster)
+        // 1. Live-Daten laden (Mitglieder & Rating)
         const clubRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}?v=${timestamp}`);
+        if (!clubRes.ok) throw new Error("Club nicht gefunden");
+        
         const clubData = await clubRes.json();
         
-        document.getElementById('member-count').textContent = clubData.members_count || '-';
-        document.getElementById('daily-rating').textContent = clubData.average_daily_rating || 'N/A';
+        document.getElementById('member-count').textContent = clubData.members_count || '0';
+        document.getElementById('daily-rating').textContent = clubData.average_daily_rating || '-';
         
-        // 2. Laufende und anstehende Matches laden (mit Cache-Buster)
+        // 2. Laufende und anstehende Matches laden
         const matchesRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}/matches?v=${timestamp}`);
         const matchesData = await matchesRes.json();
         
         renderMatches(matchesData);
     } catch (error) {
         console.error("Fehler beim Laden der Chess.com Daten:", error);
-        document.getElementById('matches-container').innerHTML = '<p style="color: var(--text-muted);">Live-Daten momentan nicht verfügbar.</p>';
+        document.getElementById('member-count').textContent = 'Fehler';
+        document.getElementById('daily-rating').textContent = 'Fehler';
+        document.getElementById('matches-container').innerHTML = '<p style="color: #ff6b6b; font-size: 14px;">Daten konnten nicht geladen werden. Ist der CLUB_SLUG korrekt?</p>';
     }
 }
-        loadAdmin();
-        loadConfig();
+
+function renderMatches(data) {
+    const container = document.getElementById('matches-container');
+    container.innerHTML = ''; 
+
+    // Wir holen zuerst alle Matches in der Registrierungsphase (Starten als nächstes!)
+    const upcoming = data.registered || [];
+    
+    // Dann die Matches, die bereits laufen
+    const inProgress = data.in_progress || [];
+
+    // Zusammenfügen: Zuerst kommende, dann laufende. Davon nehmen wir genau die Top 3.
+    const activeMatches = [...upcoming, ...inProgress].slice(0, 3);
+
+    if (activeMatches.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); font-size: 14px;">Aktuell keine Turniere. Bereite dich auf das nächste vor!</p>';
+        return;
+    }
+
+    activeMatches.forEach(match => {
+        const opponentUrlParts = match.opponent.split('/');
+        const opponentName = opponentUrlParts[opponentUrlParts.length - 1].replace(/-/g, ' ');
+
+        const card = document.createElement('div');
+        card.className = 'match-card';
+        card.onclick = () => window.open(match.url, '_blank');
+        
+        // Logik für Status & optische Hervorhebung
+        const isNext = match.status === 'registration';
+        const statusText = isNext ? 'Startet als nächstes 🟢' : 'Match läuft ⚔️';
+        
+        // Das als nächstes startende Turnier wird links grünlich hervorgehoben statt gold
+        if (isNext) {
+            card.style.borderLeftColor = '#4CAF50'; 
+            card.style.background = 'rgba(76, 175, 80, 0.05)';
+        }
+        
+        card.innerHTML = `
+            <p class="match-title">vs. <span style="text-transform: capitalize;">${opponentName}</span></p>
+            <p class="match-meta" style="${isNext ? 'color: #4CAF50; font-weight: bold;' : ''}">${statusText}</p>
+        `;
+        
+        container.appendChild(card);
+    });
+}
+
+// Lädt Kissenschlach
+async function loadAdmin() {
+    try {
+        const res = await fetch('https://api.chess.com/pub/player/kissenschlach');
+        if (!res.ok) return;
+        const adminData = await res.json();
+        
+        const container = document.getElementById('admin-container');
+        const avatarUrl = adminData.avatar || 'https://www.chess.com/bundles/web/images/user-image.svg';
+        
+        container.innerHTML = `
+            <a href="${adminData.url}" target="_blank" class="admin-link">
+                <img src="${avatarUrl}" alt="Kissenschlach" class="admin-avatar">
+                <div class="admin-info">
+                    <span class="admin-name">Kissenschlach</span>
+                    <span class="admin-role">Club Leitung</span>
+                </div>
+            </a>
+        `;
+    } catch (error) {
+        console.error("Fehler beim Laden des Admins:", error);
+    }
+}
+
+// Lädt die Config
+async function loadConfig() {
+    try {
+        const res = await fetch(`config.json?v=${new Date().getTime()}`);
+        const config = await res.json();
+
+        const newsContainer = document.getElementById('club-news');
+        if (config.news && config.news.trim() !== "") {
+            newsContainer.textContent = config.news;
+            newsContainer.style.display = "block";
+        }
+
+        const goalsContainer = document.getElementById('club-goals');
+        if (config.goals && config.goals.length > 0) {
+            goalsContainer.innerHTML = ""; 
+            config.goals.forEach(goal => {
+                const li = document.createElement('li');
+                li.textContent = goal;
+                goalsContainer.appendChild(li);
+            });
+        }
+
+        const partnerSection = document.getElementById('partner-section');
+        const partnerContainer = document.getElementById('partner-container');
+        
+        if (config.partners && config.partners.length > 0) {
+            partnerSection.style.display = "block"; 
+            partnerContainer.innerHTML = "";
+            
+            config.partners.forEach(partner => {
+                const btn = document.createElement('a');
+                btn.href = partner.url;
+                btn.className = 'partner-btn';
+                btn.textContent = partner.name;
+                btn.target = "_blank"; 
+                btn.style.marginBottom = "8px"; 
+                partnerContainer.appendChild(btn);
+            });
+        } else {
+            partnerSection.style.display = "none";
+        }
+
+    } catch (error) {
+        console.error("Konnte Config nicht laden:", error);
+    }
+}
+
+initDashboard();
+loadAdmin();
+loadConfig();
     </script>
 </body>
 </html>
