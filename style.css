@@ -192,3 +192,52 @@ body {
     transform: translateY(-50%); /* Zentriert die Ente perfekt vertikal */
     font-size: 18px; /* Ente etwas größer gemacht */
 }
+
+/* Ansprechpartner / Admin Karte */
+.admin-card {
+    background: var(--bg-panel);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.admin-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.admin-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    gap: 15px;
+}
+
+.admin-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    object-fit: cover;
+}
+
+.admin-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-name {
+    color: var(--gold);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.admin-role {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
