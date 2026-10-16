@@ -178,7 +178,28 @@
             }
         }
 
-        initDashboard();
+        async function initDashboard() {
+    try {
+        // Der Zeitstempel zwingt den Browser, die Daten immer frisch zu laden
+        const timestamp = new Date().getTime();
+        
+        // 1. Live-Mitgliederzahlen laden (mit Cache-Buster)
+        const clubRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}?v=${timestamp}`);
+        const clubData = await clubRes.json();
+        
+        document.getElementById('member-count').textContent = clubData.members_count || '-';
+        document.getElementById('daily-rating').textContent = clubData.average_daily_rating || 'N/A';
+        
+        // 2. Laufende und anstehende Matches laden (mit Cache-Buster)
+        const matchesRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}/matches?v=${timestamp}`);
+        const matchesData = await matchesRes.json();
+        
+        renderMatches(matchesData);
+    } catch (error) {
+        console.error("Fehler beim Laden der Chess.com Daten:", error);
+        document.getElementById('matches-container').innerHTML = '<p style="color: var(--text-muted);">Live-Daten momentan nicht verfügbar.</p>';
+    }
+}
         loadAdmin();
         loadConfig();
     </script>
