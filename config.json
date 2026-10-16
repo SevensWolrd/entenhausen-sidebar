@@ -1,5 +1,10 @@
 {
-    "partners": [],
+    "partners": [
+        {
+            "name": "💬 Zum Discord Server",
+            "url": "#"
+        }
+    ],
     "news": "",
     "upcoming_tournaments": [
         {
