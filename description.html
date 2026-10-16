@@ -6,26 +6,27 @@
     <title>Entenhausen - Philosophie</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Ultimatives Design-Upgrade für die Beschreibungsseite */
         body {
             background-color: transparent;
             margin: 0;
-            padding: 10px;
+            padding: 0;
         }
         .epic-container {
             background: linear-gradient(135deg, #0a1f16 0%, #05100b 100%);
             border: 2px solid var(--gold);
             border-radius: 12px;
-            padding: 25px;
+            padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             color: #e0e0e0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            max-width: 100%;
+            box-sizing: border-box;
         }
         .epic-header {
             text-align: center;
             border-bottom: 2px dashed rgba(212, 175, 55, 0.3);
             padding-bottom: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .success-box {
             background: linear-gradient(90deg, rgba(20, 51, 36, 0.9), rgba(10, 31, 22, 0.95));
@@ -35,12 +36,16 @@
             border-radius: 6px;
             margin: 20px 0;
             text-align: center;
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
         }
         .rule-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(212, 175, 55, 0.15);
-            margin-bottom: 12px;
             padding: 12px 15px;
             border-radius: 6px;
             border-left: 3px solid var(--gold);
@@ -60,20 +65,19 @@
         .warning-box {
             text-align: center;
             margin-top: 25px;
-            padding-top: 20px;
+            padding: 20px;
             border-top: 1px dashed #4CAF50;
             background: rgba(76, 175, 80, 0.03);
             border-radius: 6px;
-            padding: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar-container epic-container">
+    <div class="epic-container">
         
         <div class="epic-header">
-            <h2 class="gold-text" style="margin: 0 0 8px 0; font-size: 22px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">💥 Willkommen in ENTENHAUSEN 💥</h2>
-            <p style="color: #d1d1d1; font-size: 14px; margin: 0; line-height: 1.5;">
+            <h2 class="gold-text" style="margin: 0 0 10px 0; font-size: 26px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">💥 Willkommen in ENTENHAUSEN 💥</h2>
+            <p style="color: #d1d1d1; font-size: 15px; margin: 0; line-height: 1.6;">
                 Der verrückteste Schachclub nördlich von Entenbergen!<br>
                 Geheimeingang gefunden? Dagoberts Geldspeicher überlebt?<br>
                 👉 <strong class="gold-text">Jetzt bist du offiziell Teil unserer Schach-Gang 😎♟️🐤</strong>
@@ -81,13 +85,13 @@
         </div>
         
         <div class="success-box">
-            <strong class="gold-text" style="font-size: 16px; display: block; margin-bottom: 5px;">🏆 Unser Erfolg:</strong>
-            <span style="color: #fff; font-weight: bold; font-size: 15px;">Platz 2 im Beratungsschach in Deutschland 🇩🇪♟️</span><br>
-            <span style="color: #d1d1d1; font-size: 13px; display: block; margin-top: 4px;">Wir wachsen weiter – und DU bist ein Teil davon! 💪</span>
+            <strong class="gold-text" style="font-size: 17px; display: block; margin-bottom: 5px;">🏆 Unser Erfolg:</strong>
+            <span style="color: #fff; font-weight: bold; font-size: 16px;">Platz 2 im Beratungsschach in Deutschland 🇩🇪♟️</span><br>
+            <span style="color: #d1d1d1; font-size: 14px; display: block; margin-top: 5px;">Wir wachsen weiter – und DU bist ein Teil davon! 💪</span>
         </div>
 
-        <h3 class="gold-text" style="border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 5px; margin-top: 25px;">📜 Die 5 Enten-Gebote</h3>
-        <div style="margin-bottom: 25px;">
+        <h3 class="gold-text" style="border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; margin-top: 30px; font-size: 18px;">📜 Die 5 Enten-Gebote</h3>
+        <div class="rules-grid">
             <div class="rule-card">🦆 <strong>Fairplay:</strong> Cheater fliegen schneller raus als Donald bei einem Vorstellungsgespräch 🚪</div>
             <div class="rule-card">😂 <strong>Humor:</strong> Remis durch Lachanfall erlaubt</div>
             <div class="rule-card">🧡 <strong>Mindset:</strong> Elo egal – Spaß zählt</div>
@@ -95,29 +99,29 @@
             <div class="rule-card">😇 <strong>Respekt:</strong> Sei freundlich – außer bei 1...a6 😤</div>
         </div>
 
-        <h3 class="gold-text" style="border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 5px;">🎯 Was dich erwartet</h3>
+        <h3 class="gold-text" style="border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; font-size: 18px;">🎯 Was dich erwartet</h3>
         <div class="info-section">
-            <p style="color: #e0e0e0; font-size: 14px; margin: 0 0 10px 0;">
+            <p style="color: #e0e0e0; font-size: 15px; margin: 0 0 12px 0; line-height: 1.5;">
                 <strong class="gold-text">Was hier abgeht:</strong><br>
                 ♟️ Blitz, Bullet & Bananenschach 🍌 | 🎭 Verrückte Taktiken | 🤯 Wilde Eröffnungen
             </p>
-            <p style="color: #e0e0e0; font-size: 14px; margin: 0;">
+            <p style="color: #e0e0e0; font-size: 15px; margin: 0; line-height: 1.5;">
                 <strong class="gold-text">Dein Ziel:</strong><br>
                 🥇 Ruhm & Ehre | 🧠 Strategie | 🛋️ Entspannte Atmosphäre
             </p>
         </div>
         
-        <p style="color: #a0a0a0; font-size: 12px; margin-top: 20px; text-align: center;">
+        <p style="color: #a0a0a0; font-size: 13px; margin-top: 25px; text-align: center;">
             🎓 Coach: @Coach_Mihai1503 | 🤝 Fragen? 👉 @Kissenschlach oder das Admin-Team
         </p>
 
         <div class="warning-box">
-            <p style="color: #4CAF50; font-weight: bold; font-size: 15px; margin: 0 0 5px 0;">🚨 WARNUNG</p>
-            <p style="color: #d1d1d1; font-size: 13px; margin: 0;">⚠️ Kann zu besserem Schach führen | ⚠️ Hohe Lachgefahr 😂 | ⚠️ Emoji-Sucht möglich 🐤🔥</p>
+            <p style="color: #4CAF50; font-weight: bold; font-size: 16px; margin: 0 0 5px 0;">🚨 WARNUNG</p>
+            <p style="color: #d1d1d1; font-size: 14px; margin: 0;">⚠️ Kann zu besserem Schach führen | ⚠️ Hohe Lachgefahr 😂 | ⚠️ Emoji-Sucht möglich 🐤🔥</p>
             
-            <p style="font-size: 15px; color: var(--gold); font-style: italic; margin: 20px 0 0 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+            <p style="font-size: 16px; color: var(--gold); font-style: italic; margin: 25px 0 0 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
                 "Eine Ente gibt niemals auf. Sie schwimmt einfach weiter." 💦♟️<br>
-                <strong style="font-size: 16px; display: inline-block; margin-top: 5px;">#QuakAndMate ✨</strong>
+                <strong style="font-size: 18px; display: inline-block; margin-top: 8px;">#QuakAndMate ✨</strong>
             </p>
         </div>
         
