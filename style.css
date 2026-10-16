@@ -15,19 +15,44 @@ body {
 }
 
 /* Die Sidebar ist so breit wie die Chess.com Spalte */
+/* Die Sidebar gleitet beim Laden sanft ins Bild */
 .sidebar-container {
     max-width: 350px;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
+    animation: fadeDown 0.8s ease-out;
 }
 
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Der Titel bekommt einen dynamischen, pulsierenden Gold-Schimmer */
 .gold-text {
     color: var(--gold);
     margin: 0;
     font-size: 26px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    animation: premiumGlow 3.5s ease-in-out infinite alternate;
+    transition: transform 0.3s ease;
+    cursor: default;
+}
+
+/* Leichter Zoom beim Drüberfahren mit der Maus */
+.club-header:hover .gold-text {
+    transform: scale(1.03); 
+}
+
+@keyframes premiumGlow {
+    from { 
+        text-shadow: 0 0 4px rgba(212, 175, 55, 0.2); 
+    }
+    to { 
+        text-shadow: 0 0 12px rgba(212, 175, 55, 0.7), 0 0 20px rgba(212, 175, 55, 0.3); 
+    }
 }
 
 .subtitle {
