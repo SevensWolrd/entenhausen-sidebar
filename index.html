@@ -34,6 +34,14 @@
             </div>
         </section>
 
+        <!-- Ansprechpartner -->
+        <section class="admin-section">
+            <h2 class="section-title">👑 Ansprechpartner</h2>
+            <div id="admin-container" class="admin-card">
+                <!-- Wird automatisch geladen -->
+            </div>
+        </section>
+
         <!-- Clubziele -->
         <section class="goals-section">
             <h2 class="section-title">💎 Unsere Ziele</h2>
@@ -52,21 +60,17 @@
         </section>
     </div>
     
-    <!-- Das Skript direkt in der HTML-Datei (Kugelsicher) -->
     <script>
-        // HIER DEN EXAKTEN CLUB-NAMEN AUS DER CHESS.COM URL EINTRAGEN
         const CLUB_SLUG = 'entenhausen'; 
 
         async function initDashboard() {
             try {
-                // 1. Live-Mitgliederzahlen laden
                 const clubRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}`);
                 const clubData = await clubRes.json();
                 
                 document.getElementById('member-count').textContent = clubData.members_count || '-';
                 document.getElementById('daily-rating').textContent = clubData.average_daily_rating || 'N/A';
                 
-                // 2. Laufende und anstehende Matches laden
                 const matchesRes = await fetch(`https://api.chess.com/pub/club/${CLUB_SLUG}/matches`);
                 const matchesData = await matchesRes.json();
                 
@@ -94,7 +98,6 @@
 
                 const card = document.createElement('div');
                 card.className = 'match-card';
-                
                 card.onclick = () => window.open(match.url, '_blank');
                 
                 card.innerHTML = `
@@ -106,19 +109,40 @@
             });
         }
 
+        // NEU: Lädt das Profilbild und den Namen von Kissenschlach
+        async function loadAdmin() {
+            try {
+                const res = await fetch('https://api.chess.com/pub/player/kissenschlach');
+                const adminData = await res.json();
+                
+                const container = document.getElementById('admin-container');
+                const avatarUrl = adminData.avatar || 'https://www.chess.com/bundles/web/images/user-image.svg';
+                
+                container.innerHTML = `
+                    <a href="${adminData.url}" target="_blank" class="admin-link">
+                        <img src="${avatarUrl}" alt="Kissenschlach" class="admin-avatar">
+                        <div class="admin-info">
+                            <span class="admin-name">Kissenschlach</span>
+                            <span class="admin-role">Club Leitung</span>
+                        </div>
+                    </a>
+                `;
+            } catch (error) {
+                console.error("Fehler beim Laden des Admins:", error);
+            }
+        }
+
         async function loadConfig() {
             try {
                 const res = await fetch(`config.json?v=${new Date().getTime()}`);
                 const config = await res.json();
 
-                // 1. News anzeigen
                 const newsContainer = document.getElementById('club-news');
                 if (config.news && config.news.trim() !== "") {
                     newsContainer.textContent = config.news;
                     newsContainer.style.display = "block";
                 }
 
-                // 2. Clubziele laden
                 const goalsContainer = document.getElementById('club-goals');
                 if (config.goals && config.goals.length > 0) {
                     goalsContainer.innerHTML = ""; 
@@ -129,7 +153,6 @@
                     });
                 }
 
-                // 3. Partner intelligent steuern
                 const partnerSection = document.getElementById('partner-section');
                 const partnerContainer = document.getElementById('partner-container');
                 
@@ -156,6 +179,7 @@
         }
 
         initDashboard();
+        loadAdmin();
         loadConfig();
     </script>
 </body>
