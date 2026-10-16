@@ -1,6 +1,13 @@
 {
     "partners": [],
-    "news": "Willkommen im neuen Entenhausen! 🦆👑",
+    "news": "",
+    "upcoming_tournaments": [
+        {
+            "title": "Entenhausen Sonntags-Arena",
+            "info": "Start: Sonntag um 20:00 Uhr",
+            "url": "HIER_DEN_CHESS_COM_TURNIER_LINK_EINTRAGEN"
+        }
+    ],
     "goals": [
         "Respektvoller Umgang auf und neben dem Brett",
         "Spaß am Schach und gemeinsame Turniere",
