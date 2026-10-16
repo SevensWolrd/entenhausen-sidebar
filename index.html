@@ -26,9 +26,9 @@
             </div>
         </section>
 
-        <!-- NEU: Bevorstehende Turniere aus Config -->
+        <!-- Bevorstehende Turniere aus Config -->
         <section id="custom-tournaments-section" style="display: none; margin-bottom: 25px;">
-            <h2 class="section-title">🔜 Anstehende Turniere</h2>
+            <h2 class="section-title">🔜 Anstehende Events</h2>
             <div id="custom-tournaments-container"></div>
         </section>
 
@@ -138,7 +138,7 @@
                 const res = await fetch(`config.json?v=${new Date().getTime()}`);
                 const config = await res.json();
 
-                // 1. Manuelle Turniere laden (NEU)
+                // 1. Manuelle Turniere laden (mit neuem Design)
                 const tourneySection = document.getElementById('custom-tournaments-section');
                 const tourneyContainer = document.getElementById('custom-tournaments-container');
                 
@@ -148,12 +148,19 @@
                     config.upcoming_tournaments.forEach(t => {
                         const card = document.createElement('a');
                         card.href = t.url;
-                        card.target = "_blank"; // Öffnet in neuem Tab!
+                        card.target = "_blank"; 
                         card.className = 'custom-tourney-card';
+                        
+                        // Das neue, angepasste Event-Design
                         card.innerHTML = `
-                            <p class="custom-tourney-title">🟢 ${t.title}</p>
-                            <p class="custom-tourney-info">${t.info} <br><b>👉 Klick hier zur Anmeldung!</b></p>
+                            <span class="custom-tourney-title">${t.title}</span>
+                            <div class="custom-tourney-details">
+                                <span>⚡ ${t.format}</span>
+                                <span>📅 ${t.date}</span>
+                            </div>
+                            <div class="join-button">Teilnehmen</div>
                         `;
+                        
                         tourneyContainer.appendChild(card);
                     });
                 } else {
