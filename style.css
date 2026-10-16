@@ -271,33 +271,51 @@ body {
         gap: 10px; /* Bild und Text beim Ansprechpartner rücken etwas zusammen */
     }
 }
-/* Eigene, anstehende Turniere (Aus der Config) */
+/* Eigene, anstehende Turniere (wie auf der Event-Seite) */
 .custom-tourney-card {
-    background: rgba(76, 175, 80, 0.1); /* Leichtes Grün */
-    border-left: 4px solid #4CAF50; /* Grüner Rand links */
+    background: rgba(76, 175, 80, 0.1); 
+    border: 1px solid rgba(76, 175, 80, 0.3);
+    border-left: 4px solid #4CAF50;
     padding: 12px;
     border-radius: 6px;
     margin-bottom: 10px;
     cursor: pointer;
     transition: all 0.2s;
     text-decoration: none;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .custom-tourney-card:hover {
     background: rgba(76, 175, 80, 0.2);
+    border-color: #4CAF50;
     transform: translateX(4px);
 }
 
 .custom-tourney-title {
     color: #4CAF50;
     font-weight: bold;
-    margin: 0 0 5px 0;
+    margin: 0;
     font-size: 14px;
 }
 
-.custom-tourney-info {
+.custom-tourney-details {
     color: var(--text-muted);
-    margin: 0;
     font-size: 12px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.join-button {
+    background: #73992B; /* Das Chess.com Grün */
+    color: white;
+    text-align: center;
+    padding: 6px 0;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 13px;
 }
