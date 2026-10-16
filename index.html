@@ -138,6 +138,11 @@
                 const res = await fetch(`config.json?v=${new Date().getTime()}`);
                 const config = await res.json();
 
+                // NEU: Echte Mitgliederzahl aus dem Bot überschreibt die API!
+                if (config.live_members && config.live_members !== "...") {
+                    document.getElementById('member-count').textContent = config.live_members;
+                }
+
                 // 1. Manuelle Turniere laden (mit neuem Design)
                 const tourneySection = document.getElementById('custom-tournaments-section');
                 const tourneyContainer = document.getElementById('custom-tournaments-container');
@@ -151,7 +156,6 @@
                         card.target = "_blank"; 
                         card.className = 'custom-tourney-card';
                         
-                        // Das neue, angepasste Event-Design
                         card.innerHTML = `
                             <span class="custom-tourney-title">${t.title}</span>
                             <div class="custom-tourney-details">
